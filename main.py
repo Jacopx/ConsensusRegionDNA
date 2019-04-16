@@ -1,7 +1,7 @@
 import sys
 
 
-def main(fname):
+def main(fname, miss_num):
     # Same file opened two times with different file descriptor
     fd = open(fname, 'r')
     fc = open(fname, 'r')
@@ -18,7 +18,7 @@ def main(fname):
                 #  Check in all lines of the file
                 for cline in fc:
                     segment = lines[j:j+i]
-                    if segment not in cline:
+                    if not match(cline, segment, miss_num):
                         out = True
                         break
 
@@ -32,5 +32,9 @@ def main(fname):
     fc.close()
 
 
+def match(sequence, segment, miss):
+    return segment in sequence
+
+
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1], sys.argv[2])
