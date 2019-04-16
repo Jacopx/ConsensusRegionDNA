@@ -8,12 +8,12 @@ def main(fname, miss_num):
     fc = open(fname, 'r')
 
     for lines in fd:
-        for i in range(50, 1, -1):
-            for j in range(0, 50, i):
+        for i in range(len(lines), 1, -1):
+            for j in range(0, len(lines), i):
                 out = False
 
                 # Avoid segment of NON correct length
-                if j + i > 50:
+                if j + i > len(lines):
                     break
 
                 #  Check in all lines of the file
