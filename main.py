@@ -1,4 +1,5 @@
 import sys
+import regex
 
 
 def main(fname, miss_num):
@@ -7,7 +8,7 @@ def main(fname, miss_num):
     fc = open(fname, 'r')
 
     for lines in fd:
-        for i in range(25, 1, -1):
+        for i in range(50, 1, -1):
             for j in range(0, 50, i):
                 out = False
 
@@ -32,9 +33,11 @@ def main(fname, miss_num):
     fc.close()
 
 
-def match(sequence, segment, miss):
-    return segment in sequence
+def match(sequence, segment, miss=0):
+    # Fuzzy regex with #miss possible substitutions
+    pattern = r"(%s){s<=%d}" % (segment, miss)
+    return regex.findall(pattern, sequence, overlapped=True)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], int(sys.argv[2]))
